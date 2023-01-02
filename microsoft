@@ -43,23 +43,23 @@ class Solution {
 
 class Solution {
     public String getHint(String secret, String guess) {
-        int bulls=0, cows=0;
-        for(int i=0;i<secret.length();i++)
+        
+        int bulls = 0;
+        int cows = 0;
+        int[] digits = new int[10];
+        for (int i = 0; i<secret.length(); i++) 
         {
-            if(secret.charAt(i)==guess.charAt(i))
+            if (secret.charAt(i) == guess.charAt(i)) 
                 bulls++;
-            else{
-                for(int j=0;j<guess.length();j++)
-                {
-                    if(secret.charAt(i)==guess.charAt(j))
-                    {
-                        cows++;
-                        break;
-                    }
-                }
-            }
+            else {
+                if (digits[secret.charAt(i)-48] < 0) //48 is the ascii value of 0
+                    cows++;
+                if (digits[guess.charAt(i)-48] > 0) 
+                    cows++;
+                digits[secret.charAt(i)-48]++;//increasing if we encounter a digit in secret
+                digits[guess.charAt(i)-48]--;//decreasing if we encounter a digit in guess
         }
-        String res=bulls+"A"+cows+"B";
-        return res;
+        }
+        return (bulls + "A" + cows + "B");
     }
 }
