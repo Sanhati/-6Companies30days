@@ -1,0 +1,39 @@
+You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+      Stack<Integer> stack=new Stack<>();
+      for(int i=0;i<tokens.length;i++)// or for(String ch:tokens)
+      {
+        String ch=tokens[i];
+        if(ch.equals("+"))
+        {
+            stack.push(stack.pop()+stack.pop());
+        }
+        else if(ch.equals("-"))
+        {
+            int b=stack.pop();
+            int a=stack.pop();
+            stack.push(a-b);
+        }
+        else if(ch.equals("*"))
+        {
+            stack.push(stack.pop()*stack.pop());
+        }
+        else if(ch.equals("/"))
+        {
+            int b=stack.pop();
+            int a=stack.pop();
+            if(b!=0)
+                stack.push(a/b);
+            else
+               System.out.println("Division by 0 not possible") ;
+        }
+        else
+        {
+            stack.push(Integer.valueOf(ch));
+        }
+      } 
+      return stack.pop(); 
+    }
+}
