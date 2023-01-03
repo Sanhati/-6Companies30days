@@ -65,22 +65,23 @@ class Solution {
 }
 
 
-4. 
+4. You are given an integer array nums of length n. Return maximum length of Rotation Function.
 
 class Solution {
     public int maxRotateFunction(int[] nums) {
-        int F = 0;
-        int S = 0;
-        for(int i = 0; i < nums.length; i++){
-            F = F + (nums[i] * i);
-            S = S + nums[i];
+        int f=0, sum=0; 
+        for(int i=0;i<nums.length;i++)
+        {
+            f=f+i*nums[i];
+            sum=sum+nums[i];
         }
-
-        int max = F; // this is F0
-        int n = nums.length;
-        for(int i = n - 1; i >= 1 ; i--){
-            F = F + S - n * nums[i];
-            max = Math.max(max , F);
+        int max=f;
+        for(int i=nums.length-1;i>=1;i--)
+        {
+            f=f+sum-nums.length*nums[i];// finding out the expression to reduce time complexity f(i+1)=f(i)+sum of array-n*last element after each rotation
+            if(f>max)
+                max=f;
         }
-      return max;
-   
+        return max;
+    }
+}
